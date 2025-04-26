@@ -1,0 +1,23 @@
+{% extends 'base.html' %} <!-- Розширює шаблон base.html, тобто цей шаблон наслідує структуру базового -->
+
+{% block title %}Generator{% endblock %} <!-- Визначає заголовок сторінки, який замінить відповідний блок у base.html -->
+
+{% block content %}
+  <h1>OpenAI Чат</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Відправити</button>
+  </form>
+
+  {% if response_text %}
+    <h2>Відповідь:</h2>
+    <p>{{ response_text }}</p>
+  {% endif %}
+
+  {% if response_image %}
+    <h2>Зображення:</h2>
+    <img src="{{ response_image }}" alt="AI Зображення" width="256">
+  {% endif %}
+{% endblock %}

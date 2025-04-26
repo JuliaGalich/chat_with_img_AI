@@ -1,24 +1,26 @@
 <!doctype html>
+
+{% load static %} <!-- Завантажує тег static для роботи зі статичними файлами -->
+{% load django_bootstrap5 %} <!-- Завантажує Bootstrap 5 через Django-пакет -->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat&Image_AI</title>
+    <title>{% block title %}Chat&Image_AI{% endblock %}</title>
+    {% bootstrap_css %} <!-- Підключає Bootstrap 5 стилі через Django-пакет -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Підключення власного CSS-файлу через Django static -->
 </head>
 <body>
     <div>
-      <nav>
-          <a href="#">Chat&Image_AI</a>
-      </nav>
+        <nav>
+            <a href="#">Chat&Image_AI</a>
+        </nav>
     </div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Ok</button>
-    </form>
+    {% block content %}{% endblock %}
 
 
 </body>
