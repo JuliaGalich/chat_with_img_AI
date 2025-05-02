@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстрація</title>
+</head>
+<body>
+    <h1>Форма реєстрації</h1>
+    <form action="/register" method="post">
+        <label for="username">Ім'я користувача:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="email">Електронна пошта:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Пароль:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="confirm_password">Підтвердження пароля:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+
+        <button type="submit">Зареєструватися</button>
+    </form>
+</body>
+</html>
