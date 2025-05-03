@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from .forms import PromptForm
+from project.settings import API_KEY
 
 import openai
-openai.api_key = ''
-client = openai.OpenAI
+#openai.api_key = ''
+client = openai.OpenAI(api_key=API_KEY)
 
 def home(request):
     response_text = None
@@ -23,8 +24,27 @@ def home(request):
                 ]
             )
 
-            response_text = completion.choices[0].message
+            response_text = completion.choices[0].message.content
 
+            image_result = client.images.generate(
+                model="dall-e-3",
+                prompt=prompt
+            )
+
+            response_image = image_result.data[0].url
+
+            # model "gpt-image-1"
+            # image_result = client.images.generate(
+            #     model="gpt-image-1",
+            #     prompt=prompt
+            # )
+            #
+            # image_base64 = image_result.data[0].b64_json
+            # response_image = image_base64.b64decode(image_base64)
+
+            # Save the image to a file
+            with open("otter.png", "wb") as f:
+                f.write(response_image)
 
     else:
         form = PromptForm()

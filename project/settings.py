@@ -13,6 +13,11 @@ import os.path
 from pathlib import Path
 import os.path
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
