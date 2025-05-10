@@ -8,6 +8,17 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+
+     <label>
+      <input type="checkbox" name="text_response" {% if request.POST.text_response %}checked{% endif %}>
+      Відповідь текстом
+    </label><br>
+
+    <label>
+      <input type="checkbox" name="image_response" {% if request.POST.image_response %}checked{% endif %}>
+      Відповідь зображенням
+    </label><br><br>
+
     <button type="submit">Відправити</button>
   </form>
 

@@ -12,11 +12,15 @@ def home(request):
 
     if request.method == 'POST':
         form = PromptForm(request.POST)
+
+        want_text = 'text_response' in request.POST
+        want_image = 'image_response' in request.POST
+
         # is_valid
         if form.is_valid():
             prompt = form.cleaned_data['prompt']
 
-            completion = client.chat.completions.create(
+            want_text = client.chat.completions.create(
                 model="gpt-4.1",
                 messages=[
                     {"role": "developer", "content": "You are a helpful assistant."},
@@ -24,16 +28,18 @@ def home(request):
                 ]
             )
 
-            response_text = completion.choices[0].message.content
+            response_text = want_image.choices[0].message.content
 
-            image_result = client.images.generate(
-                model="dall-e-3",
-                prompt=prompt
-            )
-
+            if want_image:
+                image_result = client.images.generate(
+                    model="dall-e-3",
+                    prompt=prompt,
+                    size="512x512",
+                    response_format="url"
+                )
             response_image = image_result.data[0].url
 
-            # model "gpt-image-1"
+            #model "gpt-image-1"
             # image_result = client.images.generate(
             #     model="gpt-image-1",
             #     prompt=prompt
