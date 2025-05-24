@@ -2,21 +2,23 @@ from django.shortcuts import render, redirect
 from .forms import PromptForm
 from project.settings import API_KEY
 from django.contrib.auth.forms import UserCreationForm
+from .models import QueryHistory
 
 import openai
 #openai.api_key = ''
 client = openai.OpenAI(api_key=API_KEY)
 
 def home(request):
-    if request.user.is_autheticated:
-        QueryHistiry.objects.create(
+    if request.user.is_authenticated:
+        QueryHistory.objects.create(
             user = request.user,
             query = query,
             response_text=None,
             response_image = None
         )
 
-
+    response_text = None
+    response_image = None
     if request.method == 'POST':
         form = PromptForm(request.POST)
         # is_valid
